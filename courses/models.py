@@ -55,7 +55,7 @@ class Content(models.Model):
     order = OrderField(blank=True, for_fields=['module'])
 
     class Meta:
-        ordering =['order']
+        ordering = ['order']
 
 
 class ItemBase(models.Model):
