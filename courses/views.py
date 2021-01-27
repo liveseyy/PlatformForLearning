@@ -8,6 +8,7 @@ from django.forms.models import modelform_factory
 from django.apps import apps
 from .models import Course, Module, Content
 from .forms import ModuleFormSet
+from braces.views import CsrfExemptMixin, JsonRequestResponseMixin
 
 
 class OwnerMixin(object):
@@ -120,10 +121,23 @@ class ContentCreateUpdateView(TemplateResponseMixin, View):
 
 
 class ContentDeleteView(View):
-
     def post(self, request, id):
         content = get_object_or_404(Content, id=id, module__course__owner=request.user)
         module = content.module
         content.item.delete()
         content.delete()
         return redirect('module_content_list', module.id)
+
+
+class ModuleOrderView(CsrfExemptMixin, JsonRequestResponseMixin, View):
+    def post(self, request):
+        for id, order in self.request_json.items():
+            Module.objects.filter(id=id, course__owner=request.user).update(order=order)
+        return self.render_json_response({'saved': 'OK'})
+
+
+class ContentOrderView(CsrfExemptMixin, JsonRequestResponseMixin, View):
+    def post(self, request):
+        for id, order in self.request_json.items():
+            Content.objects.filter(id=id, module__course__owner=request.user).update(order=order)
+        return self.render_json_response({'saved': 'OK'})
