@@ -41,6 +41,7 @@ INSTALLED_APPS = [
 
     'embed_video',
     'memcache_status',
+    'rest_framework',
 
     'courses',
     'students',
@@ -132,6 +133,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 
 LOGIN_REDIRECT_URL = reverse_lazy('student_course_list')
+LOGOUT_REDIRECT_URL = reverse_lazy('student_course_list')
 
 
 CACHES = {
@@ -139,4 +141,10 @@ CACHES = {
         'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
         'LOCATION': '127.0.0.1:11211',
     }
+}
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ]
 }

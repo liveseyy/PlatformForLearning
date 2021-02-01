@@ -11,9 +11,11 @@
       <a href="/course/" class="logo">Educa</a>
       <ul class="menu">
           {% if request.user.is_authenticated %}
+            <li><a href="{% url 'student_course_list' %}">My courses</a></li>
             <li><a href="{% url 'logout' %}">Sign out</a></li>
           {% else %}
             <li><a href="{% url 'login' %}">Sign in</a></li>
+            <li><a href="{% url 'student_registration' %}">Register</a></li>
           {% endif %}
       </ul>
   </div>
