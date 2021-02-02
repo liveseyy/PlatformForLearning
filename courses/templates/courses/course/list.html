@@ -9,41 +9,55 @@
 {% endblock %}
 
 {% block content %}
-  <h1>
+  <h1 class="title mt-3 mb-3">
       {% if subject %}
         {{ subject.title }} course
       {% else %}
         All courses
       {% endif %}
   </h1>
-  <div class="contents">
-      <h3>Subjects</h3>
+  <div class="contents mb-5">
+      <h3 class="title mb-3">Subjects</h3>
       <ul id="modules">
           <li {% if not subject %}class="selected"{% endif %}>
-              <a href="{% url 'course_list'%}">All</a>
+              <a href="{% url 'course_list'%}" class="all-subjects">All</a>
           </li>
+          <div class="mt-3 row">
           {% for s in subjects %}
-             <li {% if subject == s %}class="selected"{% endif %}>
-                 <a href="{% url 'course_list_subject' s.slug %}">
-                     {{ s.title }}
-                 </a>
-                 <br><span>{{ s.total_courses }} courses</span>
-             </li>
+              <div class="col-sm-3 wrapper">
+                  <div class="wrapper__subject">
+                     <li {% if subject == s %}class="selected"{% endif %}>
+                         <a href="{% url 'course_list_subject' s.slug %}">
+                             {{ s.title }}
+                         </a>
+                         <br><span>{{ s.total_courses }} courses</span>
+                     </li>
+                  </div>
+              </div>
           {% endfor %}
+          </div>
       </ul>
   </div>
   <div class="module">
-      {% for course in courses %}
-        {% with subject=course.subject %}
-          <h3><a href="{% url 'course_detail' course.slug %}">
-              {{ course.title }}</a></h3>
-          <p>
-              <a href="{% url 'course_list_subject' subject.slug %}">
-              {{ subject }}</a>
-              {{ course.total_modules }} modules.
-              Instructor: {{ course.owner }}
-          </p>
-        {% endwith %}
-      {% endfor %}
+      <h3 class="title mb-5">Courses</h3>
+      <div class="row">
+          {% for course in courses %}
+          <div class="col-sm-4 wrapper">
+              <div class="wrapper__course">
+                {% with subject=course.subject %}
+                  <h3><a href="{% url 'course_detail' course.slug %}">
+                      {{ course.title }}</a></h3>
+                  <p>
+                      <a href="{% url 'course_list_subject' subject.slug %}">
+                      {{ subject }}</a>
+                  </p>
+                      {{ course.total_modules }} modules.
+                      Instructor: {{ course.owner }}
+
+                {% endwith %}
+              </div>
+          </div>
+          {% endfor %}
+      </div>
   </div>
 {% endblock %}

@@ -6,23 +6,23 @@
 
 {% block content %}
   {% with subject=course.subject %}
-    <h1>
+    <h1 class="title mt-3 mb-3">
         {{ object.title }}
     </h1>
-    <div class="module">
-        <h2>Overview</h2>
+    <div class="module title">
         <p>
             <a href="{% url 'course_list_subject' subject.slug %}">
                {{ subject.title }}</a>
                {{ course.modules.count }} modules.
                Instructor: {{ course.owner }}
         </p>
-        {{ object.overview|linebreaks }}
+        <h2>Overview</h2>
+        <p class="mb-3">{{ object.overview|linebreaks }}</p>
         {% if request.user.is_authenticated %}
         <form action="{% url 'student_enroll_course' %}" method="post">
             {{ enroll_form }}
             {% csrf_token %}
-            <input type="submit" value="Entroll now">
+            <input type="submit" class="btn btn-success" value="Entroll now">
         </form>
         {% else %}
             <a href="{% url 'student_registration' %}">

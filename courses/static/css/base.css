@@ -1,0 +1,45 @@
+
+
+.title {
+  text-align: center;
+}
+
+ul {
+list-style-type: none;
+}
+
+.selected a{
+  color: gray;
+}
+
+a{
+  color: black;
+}
+
+.all-subjects{
+  font-size: 25px;
+  text-align: center;
+}
+
+.wrapper__subject{
+  background: lightgray;
+  border: 1px black solid;
+  text-align: center;
+  border-radius: 5px;
+}
+
+.wrapper__subject:hover{
+  background: #e3e3e3;
+}
+
+
+.wrapper__course{
+  background: #9fb4d4;
+  border: 1px black solid;
+  text-align: center;
+  border-radius: 5px;
+}
+
+.wrapper__course:hover{
+  background: #c2d4ed;
+}

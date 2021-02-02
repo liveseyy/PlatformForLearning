@@ -5,21 +5,23 @@
 {% endblock %}
 
 {% block content %}
-  <h1>My courses</h1>
+  <h1 class="title mt-3 mb-3">My courses</h1>
   <div class="module">
-      {% for course in object_list %}
-        <div class="course-info">
-            <h3>{{ course.title }}</h3>
-            <p><a href="{% url 'student_course_detail' course.id %}">
-                Access contents
-            </a></p>
-        </div>
-      {% empty %}
-        <p>
-            You are not enrolled in any courses yet.
-            <a href="{% url 'course_list' %}">Browse courses</a>
-            to enroll in a course.
-        </p>
-      {% endfor %}
+      <div class="col-sm-6 offset-3">
+          {% for course in object_list %}
+            <div class="course-info">
+                <h3>{{ course.title }}</h3>
+                <p><a href="{% url 'student_course_detail' course.id %}">
+                    Access contents
+                </a></p>
+            </div>
+          {% empty %}
+            <p>
+                You are not enrolled in any courses yet.
+                <a href="{% url 'course_list' %}">Browse courses</a>
+                to enroll in a course.
+            </p>
+          {% endfor %}
+      </div>
   </div>
 {% endblock %}

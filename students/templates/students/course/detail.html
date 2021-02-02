@@ -6,35 +6,39 @@
 {% endblock %}
 
 {% block content %}
-  <h1>
-      {{ module.title }}
+  <h1 class="title mb-3 mt-3">
+      {{ module.course.title }}
   </h1>
   <div class="contents">
-      <h3>Modules</h3>
+      <h3 class="title mb-3">Modules</h3>
       <ul id="modules">
           {% for m in object.modules.all %}
-            <li data-id="{{ m.id }}" {% if m == module %}class="selected"{% endif %}>
-                <a href="{% url 'student_course_detail_module' object.id m.id %}">
-                    <span>
-                        Module <span class="order">{{ m.order|add:1 }}</span>
-                    </span>
-                    <br>
-                    {{ m.title }}
-                </a>
-            </li>
+              <div class="col-sm-6 offset-3">
+                    <li data-id="{{ m.id }}" {% if m == module %}class="selected"{% endif %}>
+                        <a href="{% url 'student_course_detail_module' object.id m.id %}">
+                            <span>
+                                Module <span class="order">{{ m.order|add:1 }}</span>
+                            </span>
+                            <br>
+                            {{ m.title }}
+                        </a>
+                    </li>
+              </div>
           {% empty %}
             <li>No modules yet.</li>
           {% endfor %}
       </ul>
   </div>
-  <div class="modules">
-      {% cache 600 module_contents module %}
+  <div class="modules col-sm-6 offset-3">
+        <h2 class="title">
+          {{ module.title }}
+        </h2>
           {% for content in module.contents.all %}
             {% with item=content.item %}
               <h2>{{ item.title }}</h2>
-              {{ item.render }}
+              <p class="mb-4">{{ item.render }}</p>
             {% endwith %}
           {% endfor %}
-      {% endcache %}
+
   </div>
 {% endblock %}
